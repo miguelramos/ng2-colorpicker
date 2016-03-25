@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true,
     "removeComments": true,
@@ -14,9 +15,13 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "typings/main.d.ts",
+    "typings/main"
   ],
   "files": [
-    "ng2-colorpicker.ts"
+    "typings/browser.d.ts",
+    "ng2-colorpicker.ts",
+    "components/color.spec.ts"
   ]
 }

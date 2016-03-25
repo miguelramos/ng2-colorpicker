@@ -53,8 +53,8 @@ var config = {
       'angular2/common',
       'angular2/core'
     ],
-    'angular2-table': ['ng2-table'],
-    'angular2-table-demo': 'demo'
+    'angular2-colorpicker': ['ng2-colorpicker'],
+    'angular2-colorpicker-demo': 'demo'
   },
 
   output: {

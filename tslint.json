@@ -51,6 +51,7 @@
       "check-decl",
       "check-operator",
       "check-separator"
-    ]
+    ],
+    "use-strict": [true]
   }
 }
