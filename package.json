@@ -1,0 +1,65 @@
+{
+  "name": "ng2-colorpicker",
+  "version": "0.0.0",
+  "description": "angular2 color picker components",
+  "scripts": {
+    "deploy": "NODE_ENV=production webpack -p --progress --color --optimize-minimize --optimize-dedupe --optimize-occurence-order",
+    "prepublish": "gulp clean && tsc",
+    "server": "webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
+    "start": "npm run server",
+    "test": "gulp lint"
+  },
+  "main": "ng2-table.js",
+  "typings": "ng2-table.d.ts",
+  "keywords": [
+    "angular2",
+    "angularjs",
+    "color"
+  ],
+  "author": "Dmitriy Shekhovtsov <valorkin@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/valor-software/ng2-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valor-software/ng2-table/issues"
+  },
+  "homepage": "https://github.com/valor-software/ng2-table#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "angular2": "2.0.0-beta.12",
+    "bootstrap": "3.3.6",
+    "clean-webpack-plugin": "0.1.8",
+    "compression-webpack-plugin": "0.3.0",
+    "es6-promise": "3.1.2",
+    "es6-shim": "0.35.0",
+    "eslint": "1.10.3",
+    "exports-loader": "0.6.3",
+    "file-loader": "0.8.5",
+    "gulp": "3.9.1",
+    "gulp-clean": "0.3.2",
+    "gulp-eslint": "1.1.1",
+    "gulp-size": "2.1.0",
+    "gulp-tsc": "1.1.5",
+    "gulp-tslint": "4.3.4",
+    "html-loader": "0.4.3",
+    "markdown-loader": "0.1.7",
+    "marked": "0.3.5",
+    "ng2-bootstrap": "1.0.7",
+    "pre-commit": "1.1.2",
+    "prismjs": "valorkin/prism",
+    "prismjs-loader": "0.0.2",
+    "raw-loader": "0.5.1",
+    "reflect-metadata": "0.1.2",
+    "require-dir": "0.3.0",
+    "rxjs": "5.0.0-beta.0",
+    "ts-loader": "0.8.1",
+    "tslint": "3.6.0",
+    "typescript": "1.8.9",
+    "typings": "0.7.9",
+    "webpack": "1.12.14",
+    "webpack-dev-server": "1.14.1",
+    "zone.js": "0.6.6"
+  }
+}
