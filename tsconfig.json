@@ -1,5 +1,5 @@
 {
-  "version": "1.7.5",
+  "version": "1.8.9",
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -17,6 +17,6 @@
     "node_modules"
   ],
   "files": [
-    "ng2-table.ts"
+    "ng2-colorpicker.ts"
   ]
 }
