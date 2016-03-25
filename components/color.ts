@@ -177,6 +177,8 @@ export const CSS_COLORS = {
 };
 
 export class Color {
+  private _color: any = null;
+
   /**
    * Regex expressions to match color.
    *
@@ -219,6 +221,30 @@ export class Color {
    * @returns {boolean}
    */
   static isValidCss(color: any): boolean {
+    if (CSS_COLORS.hasOwnProperty(color)) {
+      return true;
+    }
     return !!Color.match().unit.exec(color);
+  }
+
+  /**
+   * Color setter.
+   *
+   * @param color
+   */
+  set color(color: any) {
+     if (Color.isValidCss(color)) {
+       // TODO: Conversion color
+       this._color = color;
+     }
+  }
+
+  /**
+   * Color getter.
+   *
+   * @returns {any}
+   */
+  get color(): any {
+    return this._color;
   }
 }

@@ -38,11 +38,8 @@ describe('Color Picker', () => {
     'hsv(0, 100%, 100%)',
     'hsv 0 100% 100%',
   ];
-  it('Should have a css color.', () => {
+  it('Possibilities should be CSS readable.', () => {
     possibilities.map((color: string) => {
-      if (CSS_COLORS.hasOwnProperty(color)) {
-        color = CSS_COLORS[color];
-      }
       expect(Color.isValidCss(color)).toBeTruthy();
     });
   });

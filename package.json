@@ -9,8 +9,8 @@
     "start": "npm run server",
     "test": "gulp lint"
   },
-  "main": "ng2-table.js",
-  "typings": "ng2-table.d.ts",
+  "main": "ng2-colorpicker.js",
+  "typings": "ng2-colorpicker.d.ts",
   "keywords": [
     "angular2",
     "angularjs",
@@ -31,7 +31,7 @@
     "angular2": "2.0.0-beta.12",
     "bootstrap": "3.3.6",
     "clean-webpack-plugin": "0.1.8",
-    "compression-webpack-plugin": "0.3.0",
+    "compression-webpack-plugin": "0.2.0",
     "es6-promise": "3.1.2",
     "es6-shim": "0.35.0",
     "eslint": "1.10.3",
