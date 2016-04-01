@@ -24,6 +24,13 @@ export interface IMatcher {
   hex8: RegExp;
 }
 
+export interface IConvertFormat {
+  match: Array<any>;
+  type: string;
+  color: any;
+  format?: any;
+}
+
 export const CSS_COLORS = {
   aliceblue: 'f0f8ff',
   antiquewhite: 'faebd7',
@@ -179,6 +186,61 @@ export const CSS_COLORS = {
 export class Color {
   private _color: any = null;
 
+  static helpers = {
+    pad(c: any): string {
+      return c.length === 1 ? '0' + c : '' + c;
+    },
+    convertHexToDecimal(hex: string): number {
+      return (this.parseIntFromHex(hex) / 255);
+    },
+    parseIntFromHex(val: string): number {
+      return parseInt(val, 16);
+    },
+    convertDecimalToHex(dec: string): string {
+      return Math.round(parseFloat(dec) * 255).toString(16);
+    },
+    isPercentage(n: string): boolean {
+      return (n.indexOf('%') !== -1);
+    },
+    isOnePointZero(n: string): boolean {
+      return !!(n.indexOf('.') !== -1 && parseFloat(n) === 1);
+    },
+    bound(n: string, max: number): number {
+      if (this.isOnePointZero(n)) {
+        n = '100%';
+      }
+
+      let processPercent: boolean = this.isPercentage(n);
+      let num = +Math.min(max, Math.max(0, parseFloat(n)));
+      // Automatically convert percentage into number
+      if (processPercent) {
+        num = (parseInt(n, 10) * max) / 100;
+      }
+
+      // Handle floating point rounding errors
+      if ((Math.abs(num - max) < 0.000001)) {
+        return 1;
+      }
+
+      // Convert into [0, 1] range if it isn't already
+      return <number>(num % max) / parseFloat(max.toString());
+    },
+    clamp(val: number): number {
+      return Math.min(1, Math.max(0, val));
+    },
+    rgbaToHex(r: number, g: number, b: number, a: string): string {
+
+      let hex: Array<string> = [
+        this.pad(this.convertDecimalToHex(a)),
+        this.pad(Math.round(g).toString(16)),
+        this.pad(Math.round(b).toString(16)),
+        this.pad(Math.round(r).toString(16)),
+      ];
+
+      return hex.join('');
+    },
+  };
+
   /**
    * Regex expressions to match color.
    *
@@ -225,6 +287,77 @@ export class Color {
       return true;
     }
     return !!Color.match().unit.exec(color);
+  }
+
+  /**
+   *
+   * @param color
+   */
+  static converter(color: any) {
+    // trim left and right spaces
+    color = color.replace(/^\s+/, '').replace(/\s+$/, '').toLowerCase();
+    if (CSS_COLORS.hasOwnProperty(color)) {
+      color = CSS_COLORS[color];
+    }
+
+    let matching: Function = () => {
+      let matcher: IMatcher = Color.match();
+
+      for (let key in matcher) {
+        if (key !== 'unit' && matcher.hasOwnProperty(key)) {
+          let match = matcher[key].exec(color);
+          if (match) {
+            return <IConvertFormat>{match: match, type: key, color: color};
+          }
+        }
+      }
+
+      return <IConvertFormat>{match: [], type: 'none', color: 'none'};
+    };
+
+    let format: IConvertFormat = matching();
+
+    return Color.formatter(format);
+  }
+
+  static formatter(formatLog: IConvertFormat): IConvertFormat {
+    switch (formatLog.type) {
+      case 'hex3':
+        formatLog.format = {
+          r: Color.helpers.parseIntFromHex(formatLog.match[1] + '' + formatLog.match[1]),
+          g: Color.helpers.parseIntFromHex(formatLog.match[2] + '' + formatLog.match[2]),
+          b: Color.helpers.parseIntFromHex(formatLog.match[3] + '' + formatLog.match[3]),
+        };
+      break;
+      case 'hex6':
+        formatLog.format = {
+          r: Color.helpers.parseIntFromHex(formatLog.match[1]),
+          g: Color.helpers.parseIntFromHex(formatLog.match[2]),
+          b: Color.helpers.parseIntFromHex(formatLog.match[3]),
+        };
+      break;
+      case 'hex8':
+        formatLog.format = {
+          a: Color.helpers.convertHexToDecimal(formatLog.match[1]),
+          r: Color.helpers.parseIntFromHex(formatLog.match[2]),
+          g: Color.helpers.parseIntFromHex(formatLog.match[3]),
+          b: Color.helpers.parseIntFromHex(formatLog.match[4]),
+        };
+      break;
+      case 'rgb':
+      break;
+      case 'rgba':
+      break;
+      case 'hsl':
+      break;
+      case 'hsla':
+      break;
+      case 'hsv':
+      break;
+      default:
+    }
+
+    return formatLog;
   }
 
   /**
